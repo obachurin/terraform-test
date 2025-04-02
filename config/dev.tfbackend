@@ -1,0 +1,4 @@
+resource_group_name  = "some-rg"
+storage_account_name = "devops-account-storage"
+container_name       = "terraform"
+key                  = "dev.tfstate"
