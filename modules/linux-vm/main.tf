@@ -4,6 +4,8 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = var.resource_group_name
   location           = var.location
   address_space      = var.vnet_address_space
+
+  tags = var.common_tags
 }
 
 # Create Subnet
@@ -20,6 +22,7 @@ resource "azurerm_public_ip" "pip" {
   resource_group_name = var.resource_group_name
   location           = var.location
   allocation_method  = "Dynamic"
+  tags               = var.common_tags
 }
 
 # Create Network Security Group
@@ -39,6 +42,8 @@ resource "azurerm_network_security_group" "nsg" {
     source_address_prefix      = var.bastion_ip
     destination_address_prefix = "*"
   }
+
+  tags = var.common_tags
 }
 
 # Create Network Interface
@@ -53,6 +58,8 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.pip.id
   }
+
+  tags = var.common_tags
 }
 
 # Connect NSG to NIC
@@ -90,4 +97,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   provision_vm_agent = true
+
+  tags = var.common_tags
 }

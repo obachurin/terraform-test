@@ -8,6 +8,7 @@ resource "azurerm_monitor_diagnostic_setting" "vm_diagnostics" {
     category = "AllMetrics"
     enabled  = true
   }
+
 }
 
 # Create Log Analytics Workspace
@@ -17,6 +18,8 @@ resource "azurerm_log_analytics_workspace" "workspace" {
   resource_group_name = var.resource_group_name
   sku                = "PerGB2018"
   retention_in_days  = 30
+
+  tags = var.common_tags
 }
 
 # Install monitoring agent on VM
@@ -40,6 +43,8 @@ SETTINGS
     }
 PROTECTED_SETTINGS
 
+  tags = var.common_tags
+  
   depends_on = [
     azurerm_linux_virtual_machine.vm
   ]

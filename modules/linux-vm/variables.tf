@@ -47,3 +47,8 @@ variable "alert_email" {
   type        = string
   description = "Email address for alerts"
 }
+
+variable "common_tags" {
+  type        = map(string)
+  description = "Common tags for all resources"
+}
